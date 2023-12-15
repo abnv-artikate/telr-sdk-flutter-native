@@ -1,0 +1,22 @@
+{
+  "provider": "apple_pay",
+  "data": {
+    "merchantIdentifier": "merchant.com.telr.applepay",
+    "displayName": "TelrPay",
+    "merchantCapabilities": [
+      "3DS",
+      "debit",
+      "credit"
+    ],
+    "supportedNetworks": [
+      "amex",
+      "visa",
+      "discover",
+      "masterCard"
+    ],
+    "countryCode": "AE",
+    "currencyCode": "AED",
+    "requiredBillingContactFields": null,
+    "requiredShippingContactFields": null
+  }
+}
