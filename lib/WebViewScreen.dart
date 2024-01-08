@@ -116,7 +116,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
               if (url.contains('telr.com'))
               {
-
+                //here
               }
             },
             gestureNavigationEnabled: true,
@@ -214,7 +214,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
         });
 
       });
- //---------------------------------
+      //---------------------------------
       //billing
       builder.element('billing', nest: (){
         // name
@@ -351,9 +351,26 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
   void getTransactionstatus(XmlDocument bookshelfXml)async {
     NetWorkHelper netWorkHelper = NetWorkHelper();
-
+    print('Inside 2');
     final response =  await netWorkHelper.getTransactionstatus(bookshelfXml);
+    if(response == 'failed' || response == null){
+      // failed
+      // alertShow('Failed');
+    }
+    else{
+      final doc = XmlDocument.parse(response);
 
+      final trnsstatus = doc.findAllElements('message').map((node) => node.text);
+
+      if(trnsstatus.toString()=='Pending'){
+        print('Inside IF');
+        getTransactionstatus(bookshelfXml);
+      }
+      else{
+        print('Inside ELSE');
+        print(trnsstatus);
+      }
+    }
   }
 
 
