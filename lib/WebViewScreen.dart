@@ -41,9 +41,6 @@ class _WebviewScreenState extends State<WebviewScreen>{
         ));
       }
       else {
-
-        // List<dynamic> list = <dynamic>[];
-        // flutter: {SavedCardListResponse: {Code: 200, Status: Success, data: [{Transaction_ID: 040029158825, Name: Visa Credit ending with 0002, Expiry: 4/25}, {Transaction_ID: 040029158777, Name: MasterCard Credit ending with 0560, Expiry: 4/24}]}}
         var token = response['CardTokenResponse']['Token'].toString();
         GlobalUtils.token=token;
         if(GlobalUtils.token.length>3){
@@ -98,13 +95,6 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
               if (request.url.contains('telr.com')) {
 
-                // setState(() {
-                //   _loadWebView = false;
-                //   _homeText = 'Loading second api';
-                //
-                // });
-                //_callresponseApi();
-                //  return NavigationDecision.prevent;
               }
 
               return NavigationDecision.navigate;
@@ -116,7 +106,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
               if (url.contains('telr.com'))
               {
-                //here
+
               }
             },
             gestureNavigationEnabled: true,
@@ -142,7 +132,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
         builder.text(GlobalUtils.storeid);
       });
       builder.element('key', nest: (){
-        builder.text(GlobalUtils.authkey); //N2RnZ-Ljdr@5n2ZB
+        builder.text(GlobalUtils.authkey);
       });
       builder.element('framed',nest:(){
         builder.text(GlobalUtils.framed);
@@ -280,8 +270,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
     final response =  await netWorkHelper.pay(xml);
 
     if(response == 'failed' || response == null){
-      // failed
-      // alertShow('Failed');
+
     }
     else
     {
@@ -317,15 +306,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
     }
   }
 
-  // void _callresponseApi()async{
-  //   String responsexmlString=CreateResponseXMLL();
-  //
-  //   //  var uri = Uri.parse('https://uat-secure.telrdev.com/gateway/remote.xml'); //uat
-  //   var uri = Uri.parse('https://secure.telr.com/gateway/mobile_complete.xml');
-  //   var response = await http.post(uri,body: responsexmlString);
-  //   print('Response 2 =  ${response.statusCode} & ${response.body}');
-  //
-  // }
+
   void CreateResponseXMLL(){
     final builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
@@ -351,7 +332,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
   void getTransactionstatus(XmlDocument bookshelfXml)async {
     NetWorkHelper netWorkHelper = NetWorkHelper();
-    print('Inside 2');
+
     final response =  await netWorkHelper.getTransactionstatus(bookshelfXml);
     if(response == 'failed' || response == null){
       // failed
@@ -363,11 +344,11 @@ class _WebviewScreenState extends State<WebviewScreen>{
       final trnsstatus = doc.findAllElements('message').map((node) => node.text);
 
       if(trnsstatus.toString()=='Pending'){
-        print('Inside IF');
+
         getTransactionstatus(bookshelfXml);
       }
       else{
-        print('Inside ELSE');
+
         print(trnsstatus);
       }
     }

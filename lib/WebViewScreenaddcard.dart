@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'package:sdk/screens/webview_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:xml/xml.dart';
-
 import 'helper/global_utils.dart';
 import 'helper/network_helper.dart';
 class WebviewScreenaddcard extends StatefulWidget {
@@ -26,14 +23,14 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
   bool _loadWebView = false;
   final Completer<WebViewController> _controller = Completer<WebViewController>();
   late WebViewController _con ;
-  //_cardgetcardtokenapi();
+
 
   void _cardgetcardtokenapi()async{
     NetWorkHelper netWorkHelper = NetWorkHelper();
     dynamic response = await netWorkHelper.getcardtoken(GlobalUtils.storeid,GlobalUtils.cardnumber,GlobalUtils.cardexpirymonth,GlobalUtils.cardexpiryyr,GlobalUtils.cardcvv);
 
     if (response == null) {
-      // no data show error message.
+
     } else {
       if (response.toString().contains('Failure')) {
         // _showLoader = false;
@@ -42,10 +39,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         ));
       }
       else {
-
-        // List<dynamic> list = <dynamic>[];
-        // flutter: {SavedCardListResponse: {Code: 200, Status: Success, data: [{Transaction_ID: 040029158825, Name: Visa Credit ending with 0002, Expiry: 4/25}, {Transaction_ID: 040029158777, Name: MasterCard Credit ending with 0560, Expiry: 4/24}]}}
-        var token = response['CardTokenResponse']['Token'].toString();
+ var token = response['CardTokenResponse']['Token'].toString();
         GlobalUtils.token=token;
         if(GlobalUtils.token.length>3){
           createXMLAfterGetCard();
@@ -92,14 +86,6 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
             navigationDelegate: (NavigationRequest request) {
 
               if (request.url.contains('telr.com')) {
-
-                // setState(() {
-                //   _loadWebView = false;
-                //   _homeText = 'Loading second api';
-                //
-                // });
-                //_callresponseApi();
-                //  return NavigationDecision.prevent;
               }
 
               return NavigationDecision.navigate;
@@ -119,15 +105,9 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         );
       }): Text(_homeText),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-
-
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
-
-
 
 
   void createXMLAfterGetCard(){
@@ -195,7 +175,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         builder.element('language', nest: (){
           builder.text('en');
         });
-        // builder.element('firstref', nest: (){
+        // builder.element('firstref', nest: (){  // parameter for proceed with refid
         //   builder.text(GlobalUtils.firstref);
         // });
         // builder.element('ref', nest: (){
@@ -310,43 +290,5 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
     }
   }
 
-  // void _launchURL(String url, String code) async {
-  //   Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (BuildContext context) => WebviewScreenaddcard(
-  //             url : url,
-  //             code: code,
-  //           )));
-  //
-  //
-  // }
 
-  void
-  getCards()async{
-    // NetWorkHelper _networkhelper = NetWorkHelper();
-    // var response = await _networkhelper.getSavedcards();
-    //
-    // print('Response : $response');
-    // var SavedCardListResponse = response['SavedCardListResponse'];
-    // print('Saved card esponse =  $SavedCardListResponse');
-    // if(SavedCardListResponse['Status'] == 'Success')
-    // {
-    //   //urlString = "https://secure.telr.com/jssdk/v2/token_frame.html?sdk=ios&store_id=\(self.STOREID)&currency=\(currency)&test_mode=\ (mode)&saved_cards=\(cardDetails.addingPercentEncoding(withAllowedCharacters:CharacterSet.urlQueryAllowed) ?? "")"
-    //   String currency = _currency.text;
-    //   String storeId = GlobalUtils.storeId; //
-    //   var data =  SavedCardListResponse['data'];
-    //   String nameString = jsonEncode(data);
-    //   print('data: $data');
-    //   print('nameString: $nameString');
-    //   String url = 'https://secure.telr.com/jssdk/v2/token_frame.html?sdk=ios&store_id=${GlobalUtils.storeId}&currency=${GlobalUtils.currency}&test_mode=${GlobalUtils.testmode}&saved_cards=${encodeQueryString(nameString.toString())}';
-    //   // String url = 'https://secure.telr.com/jssdk/v2/token_frame.html?sdk=ios&store_id=15996&currency=aed&test_mode=1&saved_cards=${encodeQueryString(data.toString())}';
-    //   print('url rl =  $url');
-    //   _url = url;
-    //
-    //   setState(() {
-    //     _apiLoaded = true;
-    //   });
-    // }
-  }
 }
