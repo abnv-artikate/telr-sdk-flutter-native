@@ -1,19 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'package:sdk/screens/webview_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:xml/xml.dart';
-
 import 'helper/global_utils.dart';
 import 'helper/network_helper.dart';
 class WebviewScreenaddcard extends StatefulWidget {
 
   static const String id = 'webviewaddcard_screen';
-  // late final String title;
+
   @override
   _WebviewScreenaddcardState createState() => _WebviewScreenaddcardState();
 }
@@ -26,14 +23,14 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
   bool _loadWebView = false;
   final Completer<WebViewController> _controller = Completer<WebViewController>();
   late WebViewController _con ;
-  //_cardgetcardtokenapi();
+
 
   void _cardgetcardtokenapi()async{
     NetWorkHelper netWorkHelper = NetWorkHelper();
     dynamic response = await netWorkHelper.getcardtoken(GlobalUtils.storeid,GlobalUtils.cardnumber,GlobalUtils.cardexpirymonth,GlobalUtils.cardexpiryyr,GlobalUtils.cardcvv);
 
     if (response == null) {
-      // no data show error message.
+
     } else {
       if (response.toString().contains('Failure')) {
         // _showLoader = false;
@@ -42,11 +39,8 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         ));
       }
       else {
-
-        // List<dynamic> list = <dynamic>[];
-        // flutter: {SavedCardListResponse: {Code: 200, Status: Success, data: [{Transaction_ID: 040029158825, Name: Visa Credit ending with 0002, Expiry: 4/25}, {Transaction_ID: 040029158777, Name: MasterCard Credit ending with 0560, Expiry: 4/24}]}}
-        var token = response['CardTokenResponse']['Token'].toString();
-      GlobalUtils.token=token;
+ var token = response['CardTokenResponse']['Token'].toString();
+        GlobalUtils.token=token;
         if(GlobalUtils.token.length>3){
           createXMLAfterGetCard();
         }
@@ -84,7 +78,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
             onWebViewCreated: (WebViewController webViewController) {
               // _controller.complete(webViewController);
               _con = webViewController;
-            //  _loadHTML();
+              //  _loadHTML();
             },
             onProgress: (int progress) {
 
@@ -92,14 +86,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
             navigationDelegate: (NavigationRequest request) {
 
               if (request.url.contains('telr.com')) {
-
-                // setState(() {
-                //   _loadWebView = false;
-                //   _homeText = 'Loading second api';
-                //
-                // });
-               //_callresponseApi();
-               //  return NavigationDecision.prevent;
+                //add navigation code here
               }
 
               return NavigationDecision.navigate;
@@ -111,7 +98,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
 
               if (url.contains('telr.com'))
               {
-
+                //add navigation code here
               }
             },
             gestureNavigationEnabled: true,
@@ -119,15 +106,9 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         );
       }): Text(_homeText),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-
-
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
-
-
 
 
   void createXMLAfterGetCard(){
@@ -175,7 +156,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
           builder.text(GlobalUtils.testmode);
         });
         builder.element('type', nest: (){
-          builder.text(GlobalUtils.transtype);
+          builder.text(GlobalUtils.transtype); //verify for add card
         });
         builder.element('class', nest: (){
           builder.text(GlobalUtils.transclass);
@@ -195,15 +176,22 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         builder.element('language', nest: (){
           builder.text('en');
         });
-        // builder.element('firstref', nest: (){
+        // builder.element('firstref', nest: (){  // parameter for proceed with refid
         //   builder.text(GlobalUtils.firstref);
         // });
-        // builder.element('ref', nest: (){
+        // builder.element('ref', nest: (){  // parameter for proceed with transaction reference
         //   builder.text('null');
         // });
 
       });
+//new changes to add savecard option
+      builder.element('card', nest: (){
+        builder.element('savecard', nest: (){
+          builder.text(GlobalUtils.keysaved);
+        });
 
+      });
+      //---------------------------------
       //billing
       builder.element('billing', nest: (){
         // name
@@ -269,8 +257,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
     final response =  await netWorkHelper.pay(xml);
 
     if(response == 'failed' || response == null){
-      // failed
-     // alertShow('Failed');
+      //add the navigation code here
     }
     else
     {
@@ -285,12 +272,12 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         _url = _url.replaceAll(')', '');
         _code = _code.replaceAll('(', '');
         _code = _code.replaceAll(')', '');
-        //_launchURL(_url,_code);
+
       }
 
       final message = doc.findAllElements('message').map((node) => node.text);
       setState(() {
-       // if
+
         _loadWebView = true;
       });
 
@@ -298,12 +285,10 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         String msg = message.toString();
         msg = msg.replaceAll('(', '');
         msg = msg.replaceAll(')', '');
-       // alertShow(msg);
+
       }
     }
   }
 
-  void
-  getCards()async{
-  }
+
 }
