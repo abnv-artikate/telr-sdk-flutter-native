@@ -51,12 +51,6 @@ class _WebviewScreenState extends State<WebviewScreen>{
     }
   }
 
-
-
-
-
-
-
   String _homeText = '';
 
   @override
@@ -94,7 +88,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
             navigationDelegate: (NavigationRequest request) {
 
               if (request.url.contains('telr.com')) {
-
+              //add navigation code here
               }
 
               return NavigationDecision.navigate;
@@ -106,7 +100,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
               if (url.contains('telr.com'))
               {
-
+                  //add navigation code here
               }
             },
             gestureNavigationEnabled: true,
@@ -189,10 +183,10 @@ class _WebviewScreenState extends State<WebviewScreen>{
         builder.element('language', nest: (){
           builder.text('en');
         });
-        // builder.element('firstref', nest: (){
+        // builder.element('firstref', nest: (){ // parameter for proceed with refid
         //   builder.text(GlobalUtils.firstref);
         // });
-        // builder.element('ref', nest: (){
+        // builder.element('ref', nest: (){ // parameter for proceed with transaction reference
         //   builder.text('null');
         // });
 
@@ -286,7 +280,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
         _code = _code.replaceAll('(', '');
         _code = _code.replaceAll(')', '');
         GlobalUtils.code=_code;
-        //_launchURL(_url,_code);
+
       }
 
       final message = doc.findAllElements('message').map((node) => node.text);
@@ -300,8 +294,6 @@ class _WebviewScreenState extends State<WebviewScreen>{
         String msg = message.toString();
         msg = msg.replaceAll('(', '');
         msg = msg.replaceAll(')', '');
-
-        // alertShow(msg);
       }
     }
   }
@@ -335,8 +327,7 @@ class _WebviewScreenState extends State<WebviewScreen>{
 
     final response =  await netWorkHelper.getTransactionstatus(bookshelfXml);
     if(response == 'failed' || response == null){
-      // failed
-      // alertShow('Failed');
+      //add the navigation code here
     }
     else{
       final doc = XmlDocument.parse(response);

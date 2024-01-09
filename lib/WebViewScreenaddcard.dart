@@ -10,7 +10,7 @@ import 'helper/network_helper.dart';
 class WebviewScreenaddcard extends StatefulWidget {
 
   static const String id = 'webviewaddcard_screen';
-  // late final String title;
+
   @override
   _WebviewScreenaddcardState createState() => _WebviewScreenaddcardState();
 }
@@ -86,6 +86,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
             navigationDelegate: (NavigationRequest request) {
 
               if (request.url.contains('telr.com')) {
+                //add navigation code here
               }
 
               return NavigationDecision.navigate;
@@ -97,7 +98,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
 
               if (url.contains('telr.com'))
               {
-
+                //add navigation code here
               }
             },
             gestureNavigationEnabled: true,
@@ -178,7 +179,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         // builder.element('firstref', nest: (){  // parameter for proceed with refid
         //   builder.text(GlobalUtils.firstref);
         // });
-        // builder.element('ref', nest: (){
+        // builder.element('ref', nest: (){  // parameter for proceed with transaction reference
         //   builder.text('null');
         // });
 
@@ -256,8 +257,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
     final response =  await netWorkHelper.pay(xml);
 
     if(response == 'failed' || response == null){
-      // failed
-      // alertShow('Failed');
+      //add the navigation code here
     }
     else
     {
@@ -272,12 +272,12 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         _url = _url.replaceAll(')', '');
         _code = _code.replaceAll('(', '');
         _code = _code.replaceAll(')', '');
-        //_launchURL(_url,_code);
+
       }
 
       final message = doc.findAllElements('message').map((node) => node.text);
       setState(() {
-        // if
+
         _loadWebView = true;
       });
 
@@ -285,7 +285,7 @@ class _WebviewScreenaddcardState extends State<WebviewScreenaddcard>{
         String msg = message.toString();
         msg = msg.replaceAll('(', '');
         msg = msg.replaceAll(')', '');
-        // alertShow(msg);
+
       }
     }
   }
