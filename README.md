@@ -1,25 +1,16 @@
-# Flutter Credit Card Example
+<p align="center">
+<img
+src='https://github.com/telrsdk/TelrSDK/blob/master/Example/TelrSDK/Images.xcassets/logo.imageset/Telr-logo-green-rgb-2000w.png' width="200"/>
+</p>
 
-A new Flutter application demonstrate use of the CreditCard widget package.
+# Telr Flutter SDK
 
-## Running the app
+This SDK enables you to accept payments in your Android and iOS apps. You can find our documentation [here](https://docs.telr.com).
 
-## Get packages
-#```dart
- ##flutter packages get
-#```
-## Run the app
-`flutter run`
+## Support
 
-## Getting Started
+If you have questions or need help, please contact support@telr.com.
 
-This project is a starting point for a Flutter application.
+## License
 
-A few resources to get you started if this is your first Flutter project:
-
--[Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
--[Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+This repository is available under the [MIT license](LICENSE).
